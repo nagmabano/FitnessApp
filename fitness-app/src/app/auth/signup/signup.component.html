@@ -1,10 +1,17 @@
 <section>
     <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="onSubmit(f)">
         <mat-form-field appearance="legacy">
-            <input type="email" matInput placeholder="Your email" ngModel name="email">
+            <input type="email" matInput placeholder="Your email" ngModel name="email"
+             #emailInput="ngModel" email required>
+            <mat-error *ngIf="emailInput.hasError('required')">Fields must not be empty.</mat-error>
+            <mat-error *ngIf="!emailInput.hasError('required')">E-Mail is ivalid.</mat-error>
         </mat-form-field>
-        <mat-form-field appearance="legacy">
-            <input type="password" matInput placeholder="Your password" ngModel name="password">
+        <mat-form-field appearance="legacy" hintLabel="Should be atleast 6 characters long">
+            <input type="password" matInput placeholder="Your password" ngModel name="password"
+             #pwInput="ngModel" required minlength="6">
+            <mat-hint align="end">{{pwInput.value?.length}} characters</mat-hint>
+            <!-- Errors take over hints -->
+            <mat-error>Has to be atleast 6 characters long.</mat-error>
         </mat-form-field>
         <button type="submit" mat-raised-button color="primary">Submit</button>
     </form>
