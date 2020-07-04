@@ -46,4 +46,8 @@ export class TrainingService {
     getRunningExercise() {
         return {...this.runningExercise};
     }
+
+    getCompletedOrCancelledExercise() {
+        return this.exercises.slice();
+    }
 }
