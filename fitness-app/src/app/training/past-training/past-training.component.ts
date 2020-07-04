@@ -22,11 +22,11 @@ export class PastTrainingComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.dataSource.data = this.trainingService.getCompletedOrCancelledExercise();
-    this.dataSource.paginator = this.paginator;
   }
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   doFilter(filterValue: string) {
