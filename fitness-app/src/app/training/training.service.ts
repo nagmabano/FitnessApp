@@ -8,13 +8,13 @@ import { map } from 'rxjs/operators';
 @Injectable()
 export class TrainingService {
 
-    @Output() exerciseChanged = new Subject<Exercise>();
-    @Output() exercisesChanged = new Subject<Exercise[]>();
+    exerciseChanged = new Subject<Exercise>();
+    exercisesChanged = new Subject<Exercise[]>();
+    finishedExercisesChanged = new Subject<Exercise[]>();
     
     private availableExercises: Exercise[] = [];
-
     private runningExercise: Exercise;
-    private exercises: Exercise[] = [];
+    private finishedExercises: Exercise[] = [];
 
     constructor(private db: AngularFirestore){}
 
@@ -64,8 +64,11 @@ export class TrainingService {
         return {...this.runningExercise};
     }
 
-    getCompletedOrCancelledExercise() {
-        return this.exercises.slice();
+    fetchCompletedOrCancelledExercise() {
+        this.db.collection('finishedExercises').valueChanges().subscribe((exercises: Exercise[]) => {
+            this.finishedExercises = exercises;
+            this.finishedExercisesChanged.next(exercises);
+        });
     }
 
     private addDataToDatabase(exercise: Exercise) {
