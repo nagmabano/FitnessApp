@@ -14,7 +14,7 @@ export class TrainingService {
     
     private availableExercises: Exercise[] = [];
     private runningExercise: Exercise;
-    private finishedExercises: Exercise[] = [];
+    // private finishedExercises: Exercise[] = [];
 
     constructor(private db: AngularFirestore){}
 
@@ -39,6 +39,8 @@ export class TrainingService {
     }
 
     startExercise(selectedId: string) {
+        // working with document in firebase
+        // this.db.doc('availableExercises/' + selectedId).update({lastSelected: new Date()});
         this.runningExercise = this.availableExercises.find(ex => ex.id === selectedId);
         this.exerciseChanged.next({...this.runningExercise});
     }
@@ -66,7 +68,7 @@ export class TrainingService {
 
     fetchCompletedOrCancelledExercise() {
         this.db.collection('finishedExercises').valueChanges().subscribe((exercises: Exercise[]) => {
-            this.finishedExercises = exercises;
+            // this.finishedExercises = exercises;
             this.finishedExercisesChanged.next(exercises);
         });
     }
