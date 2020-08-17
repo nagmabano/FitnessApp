@@ -6,7 +6,7 @@ import { NewTrainingComponent } from './new-training/new-training.component';
 import { PastTrainingComponent } from './past-training/past-training.component';
 import { SharedModule } from '../shared/shared.module';
 import { StopTrainingComponent } from './current-training/stop-training.component';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { TrainingRoutingModule } from './training-routing.module';
 
 @NgModule({
     declarations:[
@@ -17,8 +17,8 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
         StopTrainingComponent
     ],
     imports: [
-        AngularFirestoreModule,
-        SharedModule
+        SharedModule,
+        TrainingRoutingModule
     ],
     entryComponents: [StopTrainingComponent]
 })
